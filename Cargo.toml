@@ -1,0 +1,35 @@
+[package]
+name = "t_dix"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { version = "0.2.4", features = ["web", "ssr"] }
+wasm-bindgen = { version = "0.2.83", features = [] }
+console_error_panic_hook = "0.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1"
+tracing = "0.1"
+tracing-wasm = "0.2"
+js-sys = "0.3"
+gloo-utils = "0.1.5"
+wasm-bindgen-futures = "0.4.33"
+
+[dependencies.web-sys]
+version = "0.3.6"
+features = [
+    "Window",
+    "VideoTrack",
+    "HtmlVideoElement",
+    "HtmlSelectElement",
+    "Navigator",
+    "MediaStream",
+    "MediaDeviceInfo",
+    "MediaDeviceKind",
+    "MediaStreamConstraints",
+    "Permissions",
+    "MediaDevices",
+    "console",
+]
