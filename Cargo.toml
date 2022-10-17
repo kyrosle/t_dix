@@ -31,5 +31,6 @@ features = [
     "MediaStreamConstraints",
     "Permissions",
     "MediaDevices",
+    "MediaRecorder",
     "console",
 ]
