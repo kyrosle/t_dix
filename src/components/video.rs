@@ -3,7 +3,8 @@ use serde_json::json;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlVideoElement;
 
-use crate::VideoStream;
+use crate::{components::controls::Controls, VideoStream};
+
 
 /// # Get from discord
 ///
@@ -46,6 +47,9 @@ use crate::VideoStream;
 pub fn Video(cx: Scope) -> Element {
     let stream = use_ref(&cx, || None);
 
+    // let title = cx.consume_context::<String>().unwrap();
+    // let title = binding.get_value();
+
     let _ = use_future(&cx, (), |_| {
         let mut stream = stream.clone();
         let video_constraints = json!({
@@ -66,6 +70,9 @@ pub fn Video(cx: Scope) -> Element {
             video_stream
                 .set_video_src(&video_constraints, &mut stream)
                 .await;
+
+            // let devices = Devices::load().await;
+            // info!(" devices: {:#?}", devices);
         }
     });
     cx.render(rsx! {
@@ -78,29 +85,8 @@ pub fn Video(cx: Scope) -> Element {
                 width: "640",
                 height: "480",
             }
+            // p {"{title}"}
             Controls()
-        }
-    })
-}
-
-#[allow(non_snake_case)]
-pub fn Controls(cx: Scope) -> Element {
-    cx.render(rsx! {
-        div {
-            class: "absolute bottom-2  p-5 w-full",
-            div {
-                class: "justify-center",
-                div {
-                    class: "mb-3 xl:w-96",
-                    select {
-                        class: "form-select appearance-none block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none",
-                        "aria-label": "Default select example",
-                        option { value: "", "Select"}
-                        option { value: "environment", "environment"}
-                        option { value: "user", "User"}
-                    }
-                }
-            }
         }
     })
 }

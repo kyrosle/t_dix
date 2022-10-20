@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.2.4", features = ["web", "ssr"] }
+dioxus = { version = "0.2.4", features = ["web", "ssr", "fermi"] }
 wasm-bindgen = { version = "0.2.83", features = [] }
 console_error_panic_hook = "0.1"
 serde = { version = "1.0", features = ["derive"] }
@@ -32,5 +32,6 @@ features = [
     "Permissions",
     "MediaDevices",
     "MediaRecorder",
+    "MediaDeviceKind",
     "console",
 ]

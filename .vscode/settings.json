@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["autoplay", "bindgen", "dioxus", "gloo"]
+  "cSpell.words": [
+    "Audioinput",
+    "autoplay",
+    "bindgen",
+    "dioxus",
+    "gloo",
+    "onclick",
+    "Videoinput"
+  ]
 }

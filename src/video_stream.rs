@@ -1,9 +1,11 @@
-use dioxus::prelude::{dioxus_elements::p, UseRef};
+use dioxus::prelude::UseRef;
 use gloo_utils::format::JsValueSerdeExt;
 use tracing::{info, warn};
 use wasm_bindgen::{JsCast, JsValue};
 use wasm_bindgen_futures::JsFuture;
 use web_sys::{HtmlVideoElement, MediaStream, MediaStreamConstraints};
+
+use crate::devices::Devices;
 
 pub struct VideoStream {
     el: HtmlVideoElement,
@@ -20,12 +22,9 @@ impl VideoStream {
         stream: &mut UseRef<Option<MediaStream>>,
     ) {
         // get media device by js binding
-        let window = web_sys::window().expect("no global `window` exists");
-        let navigator = window.navigator();
-        let devices = navigator
-            .media_devices()
-            .expect("no `navigator.media_devices` exists");
-        info!("devices (tracing_wasm) : {:?}", devices);
+        // from Devices strut methods
+        let devices = Devices::get_media_devices();
+        // info!("devices (tracing_wasm) : {:#?}", devices);
         web_sys::console::log_1(&devices);
         let all_devices = JsFuture::from(devices.enumerate_devices().unwrap())
             .await
@@ -47,7 +46,7 @@ impl VideoStream {
         // let media_stream = media.unchecked_into::<MediaStream>();
         match media.dyn_ref::<MediaStream>() {
             Some(media_stream) => {
-                info!("media stream(tracing_wasm): {:?}", media_stream);
+                // info!("media stream(tracing_wasm): {:#?}", media_stream);
                 self.el.set_src_object(Some(media_stream));
                 stream.write().replace(media_stream.to_owned());
             }
